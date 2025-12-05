@@ -1,0 +1,26 @@
+flowchart LR
+    Start["Start"] --> Receive["Receive dispatch request"]
+    Receive --> CheckCust{"Customer exists?"}
+    CheckCust -- No --> NotFound["Return 404"]
+    CheckCust -- Yes --> FetchCust["Get customer coordinates"]
+    FetchCust --> FetchTechs["Get active technicians"]
+    FetchTechs --> Prefilter["Shortlist nearest (haversine)"]
+    Prefilter --> ORS["Get driving distances (ORS)"]
+    ORS --> Select["Choose nearest technician"]
+    Select --> Save["Save assignment to DB"]
+    Save --> Respond["Return assignment details"]
+    Respond --> End["End"]
+
+    %% Colors (simple, clear palette)
+    style Start fill:#e6f7ff,stroke:#1890ff
+    style Receive fill:#fffbe6,stroke:#ffc107
+    style CheckCust fill:#ffffff,stroke:#0f172a
+    style NotFound fill:#fdecea,stroke:#f44336
+    style FetchCust fill:#f0f7e6,stroke:#28a745
+    style FetchTechs fill:#f0f7e6,stroke:#28a745
+    style Prefilter fill:#f6f0ff,stroke:#6f42c1
+    style ORS fill:#f6f0ff,stroke:#6f42c1
+    style Select fill:#fff7ed,stroke:#ff7a00
+    style Save fill:#e9f5ff,stroke:#2366d1
+    style Respond fill:#e6fffb,stroke:#00a3a3
+    style End fill:#f8f9fa,stroke:#6c757d
